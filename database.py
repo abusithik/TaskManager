@@ -61,17 +61,23 @@ class TaskDB:
     def register_user(self, email: str, password: str) -> bool:
         """Register a new user"""
         try:
+            print("Registering...")
             conn = self.get_connection()
+            print("Conneted...")
             if conn is not None:
                 c = conn.cursor()
                 hashed_password = self.hash_password(password)
+                print("Email :",email)
+                print("Password :",hashed_password)
                 c.execute(
                     "INSERT INTO users (email, password) VALUES (?, ?)",
                     (email, hashed_password)
                 )
+                print("committing...")
                 conn.commit()
                 return True
         except sqlite3.IntegrityError:
+            print("Exception..")
             return False
         finally:
             if conn:
@@ -82,14 +88,18 @@ class TaskDB:
         """Verify user credentials"""
         try:
             conn = self.get_connection()
+            print("Login ...")
             if conn is not None:
                 c = conn.cursor()
                 hashed_password = self.hash_password(password)
+                print("Email :",email)
+                print("Password :",hashed_password)
                 c.execute(
                     "SELECT id, email FROM users WHERE email=? AND password=?",
                     (email, hashed_password)
                 )
                 user = c.fetchone()
+                print("User :",user)
                 if user:
                     return {
                         "id": user[0],
