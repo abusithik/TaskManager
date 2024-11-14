@@ -8,12 +8,12 @@ from typing import Optional
 from google.cloud import aiplatform
 from vertexai.generative_models import GenerativeModel
 import vertexai
+from google.oauth2 import service_account
 
 
 # Initialize authentication and database
 auth = Auth()
 db = TaskDB()
-
 
 def init_vertex_ai():
     try:
