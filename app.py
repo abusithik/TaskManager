@@ -171,7 +171,7 @@ def main():
         note_input = st.text_area(
             "Enter your task note:",
             placeholder="Example: Write an email to David on ABC project by tomorrow",
-            help="Describe your task naturally. Include person name, due date, and priority if applicable."
+            help="Describe your task naturally. Include person name, due date, and priority if applicable.",
             key="note_input"
         )
         
