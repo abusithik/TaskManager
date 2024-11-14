@@ -38,7 +38,9 @@ def init_session_state():
 def query_gemini(prompt):
     try:
         model = init_vertex_ai()
+        print("Model :",model)
         response = model.generate_content(prompt)
+        print("Response :",response)
         return response.text
     except Exception as e:
         st.error(f"Error querying model: {e}")
