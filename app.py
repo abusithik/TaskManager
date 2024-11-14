@@ -185,7 +185,7 @@ def main():
                     if db.save_task(st.session_state.user['id'], parsed_task):
                         st.success("Task added successfully!")
                         st.session_state.note_input = ""  
-                        #time.sleep(1)
+                        time.sleep(1)
                         st.rerun()
                     else:
                         st.error("Error saving task")
