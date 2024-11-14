@@ -71,10 +71,6 @@ def query_gemini(prompt):
 
 def parse_task(note):
     """Parse a note into a structured task using Gemini"""
-
-    today = datetime.now()
-    tomorrow = current_date + timedelta(days=1)
-    
     system_prompt = """You are a task parsing assistant. Extract structured information from notes and return it in JSON format.
 Return only a valid JSON object without any additional text or formatting.
 Format your response exactly like this example:
