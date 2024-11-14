@@ -172,6 +172,7 @@ def main():
             "Enter your task note:",
             placeholder="Example: Write an email to David on ABC project by tomorrow",
             help="Describe your task naturally. Include person name, due date, and priority if applicable."
+            key="note_input"
         )
         
         submitted = st.form_submit_button("Add Task")
