@@ -16,8 +16,25 @@ db = TaskDB()
 
 
 def init_vertex_ai():
-    PROJECT_ID = "tidal-repeater-441619-n3"  # Replace with your project ID
-    LOCATION = "us-central1"
+    try:
+        # Debug credentials
+        if 'gcp_service_account' not in st.secrets:
+            st.error("No GCP credentials found in secrets")
+            return None
+            
+        credentials = service_account.Credentials.from_service_account_info(
+            st.secrets["gcp_service_account"]
+        )
+        
+        vertexai.init(
+            project="tidal-repeater-441619-n3",
+            location="us-central1",
+            credentials=credentials
+        )
+        return GenerativeModel("gemini-1.5-pro")
+    except Exception as e:
+        st.error(f"Vertex AI initialization error: {e}")
+        return None
     
     vertexai.init(project=PROJECT_ID, location=LOCATION)
     return GenerativeModel("gemini-1.5-pro")
