@@ -77,7 +77,7 @@ class Auth:
                     st.error("Passwords do not match!")
                     return
                 
-                if self.db.register_user(password, email):
+                if self.db.register_user(email,password):
                     st.success("Registration successful! Please login.")
                     st.session_state.show_login = True
                 else:
