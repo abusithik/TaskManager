@@ -71,16 +71,23 @@ def query_gemini(prompt):
 
 def parse_task(note):
     """Parse a note into a structured task using Gemini"""
+
+    current_date = datetime.now()
+    tomorrow_date = current_date + timedelta(days=1)
+    
     system_prompt = """You are a task parsing assistant. Extract structured information from notes and return it in JSON format.
 Return only a valid JSON object without any additional text or formatting.
-
+    Today date is: {current_date.strftime('%d-%m-%Y')}
+    Tomorrow's date is: {tomorrow_date.strftime('%d-%m-%Y')}
 Format your response exactly like this example:
 {"task": "Send project report", "customer": "John", "due_date": "14-11-2024", "priority": "Medium"}
 
 Rules:
 - Task should be very brief and to the point
 - To whom the job intended should be the customer name
-- Convert the dates from words like today or tomorrow carefully from current date and return in DD-MM-YYYY format
+- If "today" mentioned use: {current_date.strftime('%d-%m-%Y')}
+- If "tomorrow" mentioned use: {tomorrow_date.strftime('%d-%m-%Y')}
+- If no date mentioned, use tomorrow's date: {tomorrow_date.strftime('%d-%m-%Y')}
 - Return ONLY the JSON object, no other text
 - If no date is mentioned, use tomorrow's date
 - If no priority indicators, use "Medium"
