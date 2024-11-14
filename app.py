@@ -38,12 +38,18 @@ def init_session_state():
 def query_gemini(prompt):
     try:
         model = init_vertex_ai()
-        print("Model :",model)
+        st.write("Model initialized")  # Debug log
+        
         response = model.generate_content(prompt)
-        print("Response :",response)
+        st.write("Response received")  # Debug log
+        
+        if not response or not response.text:
+            st.error("Empty response from model")
+            return None
+            
         return response.text
     except Exception as e:
-        st.error(f"Error querying model: {e}")
+        st.error(f"Detailed error in query_gemini: {str(e)}")
         return None
 
 def parse_task(note):
